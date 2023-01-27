@@ -1,4 +1,8 @@
+
+
+import 'package:dalle/drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -42,6 +47,76 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      
+        drawer: Drawers(),
+        appBar: AppBar(
+        title: Text('DALLE FINETUNING',
+        style: GoogleFonts.poppins(
+        fontSize: 20,
+        fontWeight: FontWeight.w400
+        ),),
+        backgroundColor: Color.fromARGB(255, 16, 16, 17),
+        ),
+
+
+
+     body: 
+     Padding(
+     padding: const EdgeInsets.only(left:8.0),
+     child: Column(
+     mainAxisAlignment: MainAxisAlignment.start,
+      
+     children: [
+
+      SizedBox(height: 20,),
+
+      Text('Generate Unique Photos',
+      style: GoogleFonts.poppins(
+      fontWeight: FontWeight.w500,
+      fontSize: 20,
+       ),),
+
+      
+      
+       SizedBox(height: 20,),
+
+
+
+       SizedBox(
+        height: 40,
+        width: 280,
+        child: TextField(
+        decoration: InputDecoration(
+        label: Text('search your image'),
+        labelStyle: TextStyle(color: Colors.red),
+        focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.black)
+            
+          ),
+          
+         ),
+       )
+
+     
+
+
+      
+
+
+     
+
+
+  
+
+
+       )
+
+      ],
+      ),
+    )
+
+
+    );
   }
 }
