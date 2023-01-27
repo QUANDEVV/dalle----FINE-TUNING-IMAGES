@@ -45,6 +45,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  FocusNode _focusNode = FocusNode();
+  TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,34 +85,84 @@ class _HomeState extends State<Home> {
 
 
 
-       SizedBox(
-        height: 40,
-        width: 280,
-        child: TextField(
-        decoration: InputDecoration(
-        label: Text('search your image'),
-        labelStyle: TextStyle(color: Colors.red),
-        focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: Colors.black)
-            
-          ),
+       Padding(
+         padding: const EdgeInsets.only(left:0.0),
+         child: GestureDetector(
+          onTap: () {
+          FocusScope.of(context).unfocus();
+          _controller.clear();
+           },
+           child: SizedBox(
+           height: 50,
+           width: 320,
           
+           child: TextField(
+           focusNode: _focusNode,
+           controller: _controller,
+           decoration: InputDecoration(
+           label: Text('search your images'),
+           labelStyle: TextStyle(color: Colors.black),
+           enabledBorder: OutlineInputBorder(
+           borderSide: BorderSide(color: Colors.black),
+           borderRadius: BorderRadius.all(Radius.circular(10))
+               ),
+            focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black),
+            borderRadius: BorderRadius.all(Radius.circular(10))
+            ),
+            ),
+               ),
+               ),
+            ),
+       ), 
+
+         SizedBox(height: 20,),
+
+         Row(
+          children: [
+          Container(
+          height: 100,
+          width: 100,
+          decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+
+          color: Colors.black12
          ),
-       )
+         ),
+         SizedBox(width: 20,),
+         Container(
+         height: 100,
+         width: 100,
+         decoration: BoxDecoration(
+         borderRadius: BorderRadius.circular(4),
+         color: Colors.black12
+         ),
+         )
+          ],
+         )
+        //  Container(
+        //  height: 100,
+        //  width: 100,
+        //  decoration: BoxDecoration(
+        //  color: Colors.red
+        //  ),
+        //  ),
+        //  Container(
+        //  height: 100,
+        //  width: 100,
+        //  decoration: BoxDecoration(
+        //  color: Colors.red
+        //  ),
+        //  )
 
-     
 
 
-      
 
 
-     
 
 
-  
 
 
-       )
 
       ],
       ),
