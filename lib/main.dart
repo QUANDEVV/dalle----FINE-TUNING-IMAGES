@@ -1,16 +1,20 @@
 
 
-// ignore_for_file: unnecessary_null_comparison, unused_field
+// ignore_for_file: unnecessary_null_comparison, unused_field, unused_local_variable
 
 import 'dart:convert';
 import 'dart:io';
+// import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:dalle/API/api.dart';
 import 'package:dalle/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:image_gallery_saver/image_gallery_saver.dart';
+// import 'package:permission_handler/permission_handler.dart';
 
 
 void main() {
@@ -47,6 +51,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   
   late String _imageUrl = "";
+
   final _promptController = TextEditingController();
   var url = Uri.parse('https://api.openai.com/v1/images/generations');
 
@@ -65,15 +70,18 @@ class _HomeState extends State<Home> {
         'model': 'image-alpha-001',
         'prompt': _promptController.text,
         'num_images': 1,
-        'size': '1024x1024',
+        'size': '512x512',
       }),
     );
 
     final responseJson = jsonDecode(response.body);
     setState(() {
       _imageUrl = responseJson['data'][0]['url'];
+      
     });
   }
+
+
 
 void _downloadImage() async {
     try {
@@ -88,9 +96,41 @@ void _downloadImage() async {
         print(result);
 
         if (result) {
-          print('Image saved to photo gallery');
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text("Image Saved"),
+                content: Text("The image has been saved to the gallery."),
+                actions: [
+                  ElevatedButton(
+                    child: Text("OK"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
         } else {
-          print('Failed to save image to photo gallery');
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text("Failed to Save Image"),
+                content: Text("The image failed to be saved to the gallery."),
+                actions: [
+                  ElevatedButton(
+                    child: Text("OK"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
         }
       } else {
         print('Response status code: ${response.statusCode}');
@@ -99,6 +139,9 @@ void _downloadImage() async {
       print(e);
     }
   }
+
+
+
 
 
 
